@@ -1,0 +1,88 @@
+.Login-background {
+  background: rgb(229,198,251);
+  background: linear-gradient(90deg, rgba(229,198,251,1) 0%, rgba(250,193,216,1) 18%, rgba(247,184,155,1) 71%, rgba(252,210,149,1) 92%);
+  background-size: cover;
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+  justify-content: center;
+  height: 100vh;
+  opacity: 0.9;
+}
+
+.Login-left {
+  height: 90%;
+  width: 400px;
+  margin: 20px;
+  background-image: url(./images/pexels-caio-1279107.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border-radius: 15px;
+}
+
+.Login-right {
+  height: 90%;
+  width: 400px;
+  margin: 20px;
+  background-color: white;
+  background-image: url(./images/james-stamler-k3heD_KwH0A-unsplash.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: top;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 15px;
+}
+
+.Login-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Login-text {             
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: inherit;
+  position: absolute;
+  bottom: 100px;
+}
+
+.Login-title h1 {
+  margin: 0;
+  font-size: 3em;
+  margin-bottom: 60px;
+  margin-top: 80px;
+  text-align: center;
+}
+
+.Login-text span {
+  margin: 0;
+  font-size: 1.25em;
+  font-style: italic;
+  color: #B6B6B6;
+  font-family: "Great Vibes";
+  text-align: center;
+}
+
+.Login-input {
+  margin: auto;
+  position: relative;
+  width: 60%;
+  top: 130px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.Login-button {
+  margin: auto;
+  position: relative;
+  top: 150px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

@@ -1,0 +1,322 @@
+.Main-canvas {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  height: 90%;
+  width: 70%;
+  margin: 10px;
+  background-color: #031f2b;
+  overflow: scroll;
+  border-radius: 15px;
+}
+
+.Main-menu {
+  float: left;
+  height: 100%;
+  width: 18%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #14274e;
+  overflow: scroll;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.24);
+}
+
+.Main-notification {
+  position: relative;
+  top: 10px;
+  margin: 10px 15px;
+  font-size: 1.5em;
+  font-style: italic;
+  color: rgb(219, 218, 218);
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  text-align: center;
+}
+
+.Main-genre {
+  position: relative;
+  top: 15px;
+  padding-left: 12px;
+  width: 100%;
+  font-size: 1.25em;
+  font-style: italic;
+  color: #ffd5cd;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  text-align: left;
+}
+
+.Main-genre ul {
+  position: relative;
+  font-size: 0.9em;
+  font-style: normal;
+  width: 100%;
+  background-color: transparent;
+}
+
+.Main-genre li {
+  padding: 5px 10px;
+  display: block;
+  color: #f2dcbb;
+}
+
+.Main-genre li:hover {
+  color: white;
+  font-size: larger;
+  background-color: #233c69;
+  cursor: pointer;
+}
+
+.Main-playlists {
+  position: relative;
+  top: 20px;
+  padding: 5px 0;
+  padding-left: 5px;
+  width: 100%;
+  font-size: 1.5em;
+  font-style: italic;
+  color: #f1b4a8;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  text-align: left;
+}
+.Main-playlists span {
+  position: relative;
+  padding: 10px 10px;
+  padding-right: 20px;
+}
+
+.Main-playlists:hover {
+  font-size: 1.6em;
+  background-color: #233c69;
+  cursor: pointer;
+}
+
+.Main-media {
+  position: relative;
+  top: 20px;
+  padding: 5px 0;
+  padding-left: 5px;
+  width: 100%;
+  font-size: 1.5em;
+  font-style: italic;
+  color: #eff8ff;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  text-align: left;
+}
+
+.Main-media span {
+  position: relative;
+  padding: 10px 10px;
+  padding-right: 40px;
+}
+
+.Main-media:hover {
+  font-size: 1.6em;
+  background-color: #233c69;
+  cursor: pointer;
+}
+
+.Main-logout {
+  position: relative;
+  top: 22%;
+  padding: 5px 0;
+  width: 100%;
+  font-size: 1.5em;
+  font-style: italic;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color: rgb(219, 218, 218);
+  text-align: center;
+}
+
+.Main-logout span {
+  position: relative;
+  padding: 10px 10px;
+}
+
+.Main-logout:hover {
+  font-size: 1.6em;
+  color: #f5b5a8;
+  background-color: #5b6d8f;
+  cursor: pointer;
+}
+
+.Main-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  height: 14%;
+  background-image: url(./images/james-stamler-k3heD_KwH0A-unsplash.png);
+  background-position: 10%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.24);
+}
+
+.Main-header span {
+  position: relative;
+  display: block;
+  margin: 0;
+  margin-top: 20px;
+  padding: 0 20px;
+  height: 100%;
+  width: 100%;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 2.5em;
+  font-style: italic;
+  color: white;
+  text-align: left;
+}
+
+.MusicPlayer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 90%;
+  width: 360px;
+  margin: 20px;
+  background-color: rgb(253, 252, 252);
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.36);
+  font-family: sans-serif;
+  overflow: scroll;
+  border-radius: 15px;
+}
+
+.player-header {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 65px;
+}
+
+.player-header span {
+  position: relative;
+  width: 100%;
+  font-weight: 600;
+  font-size: 1.25em;
+  text-align: center;
+}
+
+.player-center img.main-album-art {
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.24);
+  position: relative;
+  margin: 0;
+  margin-top: 10px;
+  margin-bottom: 40px;
+  width: 280px;
+  height: 280px;
+}
+
+.player-center .song-meta-data span.song-name {
+  display: block;
+  align-items: center;
+  color: #414344;
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.player-center .song-meta-data span.song-artist {
+  display: block;
+  align-items: center;
+  color: #AAAFB3;
+  font-size: 15px;
+  text-align: center;
+}
+
+.player-center .timeline {
+  display: inline-block;
+  position: relative;
+  margin: 10px auto;
+  width: 100%;
+}
+
+.player-center .timeline .slider {
+  background-color: rgb(214, 208, 208);
+  border-radius: 2px;
+  cursor: pointer;
+  height: 5px;
+  position: relative;
+  width: 100%;
+}
+
+.player-center .timeline .slider .progress {
+  background-color: #f8c5b2;
+  pointer-events: none;
+  position: absolute;
+  height: 100%;
+  width: 0;
+}
+
+.player-center .timeline .slider .progress .pin-button {
+  background-color: #f8c5b2;
+  border-radius: 15px;
+  height: 15px;
+  position: absolute;
+  pointer-events: all;
+  right: -5px;
+  top: -5px;
+  width: 15px;
+  box-shadow: (0px 1px 1px 0px rgba(0,0,0,0.32));
+  transition: (transform 0.25s ease);
+}
+
+.player-center .timeline .slider .progress .pin-button:active {
+  transform: scale(1.3);
+}
+
+.player-center .timeline span#progress-time {
+  color: gray;
+  font-size: 7px;
+  position: relative;
+  top: 8px;
+  float: left;
+}
+
+.player-center .timeline span#duration-time {
+  color: gray;
+  font-size: 7px;
+  position: relative;
+  top: 8px;
+  float: right;
+}
+
+.player-controls {
+  text-align: center;
+  margin: 0;
+  margin-top: 10px;
+}
+
+.player-controls #previous {
+  display: inline-block;
+  height: 53px;
+  width: 53px;
+  cursor: pointer;
+  vertical-align: middle;
+  margin: 0 8px;
+  background: url("https://521dimensions.com/img/open-source/amplitudejs/examples/dynamic-songs/previous.svg");
+}
+
+.player-controls .play-pause {
+  display: inline-block;
+  height: 75px;
+  width: 75px;
+  cursor: pointer;
+  vertical-align: middle;
+  margin: 0 8px;
+  margin-bottom: 5px;
+  background: url("https://521dimensions.com/img/open-source/amplitudejs/examples/dynamic-songs/play.svg");
+  background-size: cover;
+}
+
+.player-controls #next {
+  display: inline-block;
+  height: 53px;
+  width: 53px;
+  cursor: pointer;
+  vertical-align: middle;
+  margin: 0 8px;
+  background: url("https://521dimensions.com/img/open-source/amplitudejs/examples/dynamic-songs/next.svg");
+}
