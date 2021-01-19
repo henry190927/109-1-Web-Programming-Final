@@ -5,6 +5,10 @@ import { Button, Input, message, Tag } from 'antd';
 import { BarsOutlined, TeamOutlined, LogoutOutlined } from '@ant-design/icons';
 
 import test_db from './test_db';
+import Artists from './components/Artists';
+import Albums from './components/Albums';
+import Songs from './components/Songs';
+import Browse from './components/Browse';
 
 // import { useQuery, useMutation } from '@apollo/client';
 // import { 
@@ -16,16 +20,33 @@ import test_db from './test_db';
 //   MESSAGE_SUBSCRIPTION
 // } from './graphql';
 
-function MusicPlayer() {  
+function MusicPlayer({ songName }) {  
+  const song = test_db.song.find(song => song.name === songName);
+
   const [durationTime, setDurationTime] = useState(0);
   const [progressTime, setProgressTime] = useState(0);
   const [progressWidth, setProgressWidth] = useState('');
   const [isPinMoveing, setIsPinMoving] = useState(false);
-  const [playpauseIcon, setPlayPauseIcon] = useState("https://521dimensions.com/img/open-source/amplitudejs/examples/dynamic-songs/play.svg")
+  const [playpauseIcon, setPlayPauseIcon] = useState("https://521dimensions.com/img/open-source/amplitudejs/examples/dynamic-songs/play.svg");
+  const [audio, setAudio] = useState(new Audio(song.audio))
+  const [localSong, setLocalSong] = useState('');
 
-  const song = test_db.song.find(song => song.artist === "持修");
-  const audio = song.audio;
+  // const audio = new Audio(song.audio);
   
+  if (localSong !== songName) {
+    audio.pause();
+    audio.remove();
+    setAudio(null);
+    setProgressTime(0);
+    setProgressWidth('');
+    setPlayPauseIcon("https://521dimensions.com/img/open-source/amplitudejs/examples/dynamic-songs/play.svg")
+    setLocalSong(songName);
+    setAudio(new Audio(test_db.song.find(song => song.name === songName).audio));
+    audio.currentTime = 0;
+  }
+
+  const sliderRef = useRef(null);
+
   // Updating audio data 
   audio.onloadedmetadata = () => setDurationTime(audio.duration);
   audio.ontimeupdate = () => (!isPinMoveing) ? updateProgress() : null;
@@ -35,8 +56,6 @@ function MusicPlayer() {
     setProgressWidth('');
     audio.currentTime = 0;
   }
-
-  const sliderRef = useRef(null);
 
   const handlePinMove = () => {
     if (isPinMoveing) {
@@ -91,7 +110,7 @@ function MusicPlayer() {
         <span>Now Playing</span>
       </div>
       <div className="player-center">
-        <img src={song.image} className="main-album-art" />
+        <img src={song.album_image} className="main-album-art" />
         <div className="song-meta-data">
           <span className="song-name">{song.name}</span>
           <span className="song-artist">{song.artist}</span>
@@ -139,7 +158,7 @@ function MusicPlayer() {
   )
 }
 
-function Main({ username, setUsername, setUserpassword, setLoggedIn, clickItem, setClickItem }) {
+function Main({ username, setUsername, setUserpassword, setLoggedIn, clickItem, setClickItem, setSongName }) {
   const [BROWSE, SEARCH, ARTISTS, ALBUMS, SONGS] = [0, 1, 2, 3, 4];
 
   const handleClickItem = (clickItem) => {
@@ -162,6 +181,21 @@ function Main({ username, setUsername, setUserpassword, setLoggedIn, clickItem, 
       default:
         setClickItem('Browse');
         break;
+    }
+  }
+
+  const handleScreen = (screen) => {
+    switch (screen) {
+      case "Browse":
+        return <Browse setSongName={setSongName}/>;
+      case "Artists":
+        return <Artists />;
+      case "Albums":
+        return <Albums />;
+      case "Songs":
+        return <Songs setSongName={setSongName}/>;
+      default:
+        return null;
     }
   }
 
@@ -216,8 +250,14 @@ function Main({ username, setUsername, setUserpassword, setLoggedIn, clickItem, 
           <LogoutOutlined style={{padding: 10}} />
         </div>
       </div>
-      <div className="Main-header">
-        <span>{clickItem}</span>
+
+      <div className="Main-right-panel">
+        <div className="Main-header">
+          <span>{clickItem}</span>
+        </div>
+        <div className="Main-screen">
+          {handleScreen(clickItem)}
+        </div>
       </div>
     </div>
   )
@@ -231,6 +271,8 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(true);
   // Define side menu click item
   const [clickItem, setClickItem] = useState('Browse')
+  // Define current playing song name 
+  const [songName, setSongName] = useState("在這座城市遺失了你 (Where I Lost Us)")
 
   // Declare User name/password
   const [username, setUsername] = useState('Henry');
@@ -298,8 +340,15 @@ function App() {
           setLoggedIn={setLoggedIn}
           clickItem={clickItem}
           setClickItem={setClickItem}
+          setSongName={setSongName}
         />
-        <MusicPlayer />
+        {songName ? 
+        <MusicPlayer 
+          songName={songName}
+        /> : null}
+        {/* <MusicPlayer 
+          songName={songName}
+        /> */}
       </div>
     )
   }
