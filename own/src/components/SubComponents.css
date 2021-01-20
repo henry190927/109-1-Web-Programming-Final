@@ -1,0 +1,386 @@
+
+/* Album style */
+
+.album-container {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 100%;
+  background-color: transparent;
+}
+
+.album-container .album-image-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  float: left;
+  width: 360px;
+  background-color: transparent;
+}
+
+.album-container .album-image-container .image-container {
+  position: absolute;
+  display: flex;
+  height: 240px;
+  width: 240px;
+  margin: 10px 0;
+  background-color: transparent;
+}
+
+.album-container .album-image-container .image-container img.album-image {
+  position: relative;
+  display: block;
+  height: 95%;
+  width: 95%;
+  margin-top: 2.5%;
+  margin-left: 2.5%;
+  border-radius: 4px;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.24);
+}
+
+.album-container .album-data-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.album-container .album-data-container .album-play-data {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 200px;
+  width: 100%;
+}
+
+.album-container .album-data-container .album-play-data .metadata {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 90px;
+  width: 90%;
+  margin-top: 20px;
+  margin-left: 20px;
+  font-family: sans-serif;
+}
+
+.album-container .album-data-container .album-play-data .metadata span.album-name {
+  position: relative;
+  display: block;
+  height: 40px;
+  width: 100%;
+  font-size: 24px;
+  color: rgb(221, 220, 220);
+}
+
+.album-container .album-data-container .album-play-data .metadata span.artist-name {
+  position: relative;
+  display: block;
+  height: 40px;
+  width: 100%;
+  font-size: 22px;
+  color: rgb(126, 126, 126);
+}
+
+.album-container .album-data-container .album-play-data .play-header {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  height: 60px;
+  width: 90%;
+  font-size: 22px;
+  margin-top: 20px;
+  margin-left: 20px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.album-container .album-data-container .album-play-data .play-header .play-button-container {
+  position: relative;
+  display: block;
+  height: 100%;
+  width: 20%;
+}
+
+.album-container .album-data-container .album-play-data .play-header .play-button-container .play-button {
+  position: relative;
+  display: block;
+  height: 75%;
+  width: 85%;
+  margin-top: 10px;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: rgb(92, 92, 92);
+  overflow: hidden;
+}
+
+.album-container .album-data-container .album-play-data .play-header .play-button-container .play-button:hover {
+  cursor: pointer;
+  background-color: #01161f;
+}
+
+.album-container .album-data-container .album-play-data .play-header .play-button-container .play-button span.play-name {
+  position: relative;
+  height: 50%;
+  width: 100%;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: gray;
+}
+
+.album-container .album-data-container .album-play-data .play-header .blankspace {
+  position: relative;
+  display: block;
+  height: 100%;
+  width: 30%;
+}
+
+.album-container .album-data-container .album-play-data .play-header .add-button-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  height: 100%;
+  width: 50%;
+} 
+
+.album-container .album-data-container .album-play-data .play-header .add-button-container .add-button {
+  position: relative;
+  display: block;
+  height: 75%;
+  width: 40%;
+  margin-top: 10px;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 1px;
+  border-color: rgb(92, 92, 92);
+  overflow: hidden;
+}
+
+.album-container .album-data-container .album-play-data .play-header .add-button-container .add-button:hover {
+  width: 80%;
+  cursor: pointer;
+  background-color: #01161f;
+}
+
+.album-container .album-data-container .album-play-data .play-header .add-button-container .add-button span.add-name {
+  position: relative;
+  height: 50%;
+  width: 100%;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: gray;
+}
+
+.album-container .album-data-container .album-songs-data {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin-top: 200px;
+  white-space: normal;
+  overflow-x: scroll;
+  background-color: transparent;
+}
+
+.album-container .album-data-container .album-songs-data .song-item {
+  position: relative;
+  display: inline-block;
+  align-items: center;
+  height: 60px;
+  width: 95%;
+  border-style: solid;
+  border-width: 0;
+  border-top-width: 1px;
+  border-color: rgb(61, 60, 61);
+}
+
+.album-container .album-data-container .album-songs-data .song-item:hover {
+  cursor: pointer;
+  background-color: #01161f;
+}
+
+.album-container .album-data-container .album-songs-data .song-item:hover .song-datas .song-add-button {
+  visibility: visible;
+}
+
+.album-container .album-data-container .album-songs-data .song-item .song-datas {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+
+.album-container .album-data-container .album-songs-data .song-item .song-datas .song-meta-datas {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100%;
+  width: 46%;
+}
+
+.album-container .album-data-container .album-songs-data .song-item .song-datas .song-meta-datas span.song-name {
+  position: relative;
+  display: block;
+  height: 50%;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 14px;
+  color: rgb(221, 220, 220);
+  text-align: left;
+  padding-left: 10px;
+  padding-top: 2.5px;
+  margin-top: 15px;
+  white-space: nowrap;
+  overflow-x: scroll;
+}
+
+.album-container .album-data-container .album-songs-data .song-item .song-datas .song-album {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100%;
+  width: 38%;
+}
+
+.album-container .album-data-container .album-songs-data .song-item .song-datas .song-add-button {
+  visibility: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 50%;
+  width: 6%;
+}
+
+.album-container .album-data-container .album-songs-data .song-item .song-datas .song-add-button:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.album-container .album-data-container .album-songs-data .song-item .song-datas .song-time {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 10%;
+  text-align: center;
+}
+
+.album-container .album-data-container .album-songs-data .song-item .song-datas .song-time span.time {
+  position: relative;
+  display: block;
+  height: 50%;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 14px;
+  color: rgb(221, 220, 220);
+  text-align: center;
+  padding-left: 10px;
+  padding-top: 2.5px;
+  margin-top: 15px;
+  white-space: nowrap;
+  overflow-x: scroll;
+}
+
+/* Artist style */
+
+.artist-container {
+  position: relative;
+  display: block;
+  width: 100%;
+  white-space: normal;
+}
+
+.artist-container .albums-item {
+  position: relative;
+  display: inline-block;
+  align-items: center;
+  margin: 0;
+  margin-top: 25px;
+  margin-left: 25px;
+  border-radius: 6px;
+  height: 225px;
+  width: 180px;
+  background-color: transparent;
+}
+
+.artist-container .albums-item:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.artist-container .albums-item img.albums-image {
+  position: relative;
+  display: block;
+  margin: 0;
+  border-radius: 5px;
+  width: 100%;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.24);
+}
+
+.artist-container .albums-item span.albums-name {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 15px;
+  color: rgb(238, 237, 237);
+}
+
+/* Handle Backbutton style */
+
+.back-button-header {
+  position: relative;
+  display: flex;
+  height: 60px;
+  width: 95%;
+  margin-left: 10px;
+  border-style: solid;
+  border-width: 0;
+  border-bottom-width: 1px;
+  border-color: rgb(61, 60, 61);
+  background-color: transparent;
+}
+
+.back-button-header .back-container {
+  position: relative;
+  display: block;
+  width: 6%;
+  height: 100%;
+  background-color: transparent;
+}
+
+.back-button-header .back-container:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.back-button-header span.back-info {
+  display: block;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 25px;
+  margin: 10px 5px;
+  font-style: italic;
+  color: rgb(221, 220, 220);
+}

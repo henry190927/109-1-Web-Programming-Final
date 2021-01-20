@@ -9,6 +9,9 @@ import Artists from './components/Artists';
 import Albums from './components/Albums';
 import Songs from './components/Songs';
 import Browse from './components/Browse';
+import Search from './components/Search';
+import Album from './components/Album';
+import Artist from './components/Artist';
 
 // import { useQuery, useMutation } from '@apollo/client';
 // import { 
@@ -159,7 +162,7 @@ function MusicPlayer({ songName }) {
 }
 
 function Main({ username, setUsername, setUserpassword, setLoggedIn, clickItem, setClickItem, setSongName }) {
-  const [BROWSE, SEARCH, ARTISTS, ALBUMS, SONGS] = [0, 1, 2, 3, 4];
+  const [BROWSE, SEARCH, ARTISTS, ALBUMS, SONGS, PLAYLISTS] = [0, 1, 2, 3, 4, 5];
 
   const handleClickItem = (clickItem) => {
     switch (clickItem) {
@@ -178,6 +181,9 @@ function Main({ username, setUsername, setUserpassword, setLoggedIn, clickItem, 
       case SONGS:
         setClickItem('Songs');
         break;
+      case PLAYLISTS:
+        setClickItem('Playlists');
+        break;
       default:
         setClickItem('Browse');
         break;
@@ -188,12 +194,16 @@ function Main({ username, setUsername, setUserpassword, setLoggedIn, clickItem, 
     switch (screen) {
       case "Browse":
         return <Browse setSongName={setSongName}/>;
+      case "Search":
+        return <Search setSongName={setSongName}/>;
       case "Artists":
-        return <Artists />;
+        return <Artists setSongName={setSongName}/>;
       case "Albums":
-        return <Albums />;
+        return <Albums setSongName={setSongName}/>;
       case "Songs":
         return <Songs setSongName={setSongName}/>;
+      case "Playlists":
+        return null;
       default:
         return null;
     }
@@ -230,7 +240,7 @@ function Main({ username, setUsername, setUserpassword, setLoggedIn, clickItem, 
             >Songs</li>
           </ul>
         </div>
-        <div className="Main-playlists">
+        <div className="Main-playlists" onClick={() => handleClickItem(PLAYLISTS)}>
           <span>Playlists</span>
           <BarsOutlined style={{padding: 10}} />
         </div>

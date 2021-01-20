@@ -256,6 +256,12 @@
 
 /* Browse style */
 
+.browse-top {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
 .browse-container {
   position: relative;
   display: block;
@@ -359,7 +365,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 340px;
+  height: 350px;
   width: 100%;
   background-color: transparent;
 }
@@ -512,6 +518,659 @@
 }
 
 .browse-container .recommend-songs .items-container .song-item .song-datas .song-add-button:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.browse-container .recently-played {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 320px;
+  width: 100%;
+  background-color: transparent;
+}
+
+.browse-container .recently-played .header {
+  position: absolute;
+  display: flex;
+  height: 60px;
+  width: 95%;
+  margin-top: 10px;
+  border-style: solid;
+  border-width: 0;
+  border-bottom-width: 1px;
+  border-color: rgb(61, 60, 61);
+  background-color: transparent;
+}
+
+.browse-container .recently-played .header span {
+  display: block;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 25px;
+  margin: 10px 5px;
+  font-style: italic;
+  color: rgb(221, 220, 220);
+}
+
+.browse-container .recently-played .albums-container {
+  position: relative;
+  display: block;
+  height: 100%;
+  width: 100%;
+  margin-top: 60px;
+  white-space: nowrap;
+  overflow-x: scroll;
+  background-color: transparent;
+}
+
+.browse-container .recently-played .albums-container .albums-item {
+  position: relative;
+  display: inline-block;
+  align-items: center;
+  margin: 0;
+  margin-top: 25px;
+  margin-left: 12.5px;
+  margin-right: 12.5px;
+  border-radius: 6px;
+  height: 225px;
+  width: 180px;
+  background-color: transparent;
+}
+
+.browse-container .recently-played .albums-container .albums-item:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.browse-container .recently-played .albums-container .albums-item img.albums-image {
+  position: relative;
+  display: block;
+  margin: 0;
+  border-radius: 5px;
+  width: 100%;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.24);
+}
+
+.browse-container .recently-played .albums-container .albums-item span.albums-name {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 15px;
+  color: rgb(238, 237, 237);
+}
+
+.browse-container .recently-played .albums-container .albums-item span.albums-artist {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 15px;
+  color: rgb(170, 167, 167);
+}
+
+.browse-container .recommend-artists {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 280px;
+  width: 100%;
+  background-color: transparent;
+}
+
+.browse-container .recommend-artists .header {
+  position: absolute;
+  display: flex;
+  height: 60px;
+  width: 95%;
+  border-style: solid;
+  border-width: 0;
+  border-bottom-width: 1px;
+  border-color: rgb(61, 60, 61);
+  background-color: transparent;
+}
+
+.browse-container .recommend-artists .header span {
+  display: block;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 25px;
+  margin: 10px 5px;
+  font-style: italic;
+  color: rgb(221, 220, 220);
+}
+
+.browse-container .recommend-artists .artists-container {
+  position: relative;
+  display: block;
+  height: 100%;
+  width: 100%;
+  margin-top: 60px;
+  white-space: nowrap;
+  overflow-x: scroll;
+  background-color: transparent;
+}
+
+.browse-container .recommend-artists .artists-container .artists-item {
+  position: relative;
+  display: inline-block;
+  align-items: center;
+  margin: 0;
+  margin-top: 25px;
+  margin-left: 20px;
+  height: 150px;
+  width: 150px;
+  background-color: transparent;
+}
+
+.browse-container .recommend-artists .artists-container .artists-item:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.browse-container .recommend-artists .artists-container .artists-item img.artists-image {
+  position: relative;
+  display: block;
+  margin: 0;
+  margin-left: 7.5px;
+  border-radius: 90%;
+  height: 90%;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.24);
+}
+
+.browse-container .recommend-artists .artists-container .artists-item span.artists-name {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  margin: 7px 0;
+  font-family: sans-serif;
+  font-size: 15px;
+  color: rgb(238, 237, 237);
+}
+
+.browse-container .playlist-suggestion {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 340px;
+  width: 100%;
+  background-color: transparent;
+}
+
+.browse-container .playlist-suggestion .header {
+  position: absolute;
+  display: flex;
+  height: 60px;
+  width: 95%;
+  border-style: solid;
+  border-width: 0;
+  border-bottom-width: 1px;
+  border-color: rgb(61, 60, 61);
+  background-color: transparent;
+}
+
+.browse-container .playlist-suggestion .header span {
+  display: block;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 25px;
+  margin: 10px 5px;
+  font-style: italic;
+  color: rgb(221, 220, 220);
+}
+
+/* Search style */
+
+.search-container {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.search-container .search-bar-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 50%;
+  background-color: transparent;
+}
+
+.search-container .search-bar-container .search-bar {
+  position: relative;
+  display: block;
+  width: 60%;
+  height: 25%;
+  margin-top: 100px;
+  background-color: transparent;
+}
+
+.search-container .search-bar-container .search-bar Input {
+  position: relative;
+  width: 100%;
+  height: 35px;
+  border-radius: 10px;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 18px;
+  background-color: rgb(146, 145, 145);
+}
+
+.search-container .result-container {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.search-container .result-container .result-header {
+  position: relative;
+  display: flex;
+  height: 60px;
+  width: 95%;
+  margin-left: 10px;
+  border-style: solid;
+  border-width: 0;
+  border-bottom-width: 1px;
+  border-color: rgb(61, 60, 61);
+  background-color: transparent;
+}
+
+.search-container .result-container .result-header .back-container {
+  position: relative;
+  display: block;
+  width: 6%;
+  height: 100%;
+  background-color: transparent;
+}
+
+.search-container .result-container .result-header .back-container:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.search-container .result-container .result-header span {
+  display: block;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 25px;
+  margin: 10px 5px;
+  font-style: italic;
+  color: rgb(221, 220, 220);
+}
+
+.search-container .result-container .result-header .blank {
+  position: relative;
+  display: block;
+  height: 100%;
+  width: 64%;
+  background-color: transparent;
+}
+
+.search-container .result-container .result-header .mode-container {
+  position: relative;
+  display: block;
+  height: 80%;
+  width: 14%;
+  margin-top: 6px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  border-color: rgb(200, 200, 200);
+  background-color: transparent;
+}
+
+.search-container .result-container .result-header .mode-container span {
+  display: block;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 17px;
+  text-align: center;
+  font-style: italic;
+  overflow: hidden;
+  color: rgb(221, 220, 220);
+}
+
+.search-container .result-container .result-header .mode-container:hover {
+  cursor: pointer;
+  background-color: #01161f;
+}
+
+.search-container .result-container .result-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+}
+
+.search-container .result-container .result-content .artists {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 280px;
+  width: 100%;
+}
+
+.search-container .result-container .result-content .artists .header {
+  position: absolute;
+  display: flex;
+  height: 60px;
+  width: 95%;
+  background-color: transparent;
+}
+
+.search-container .result-container .result-content .artists .header span {
+  display: block;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 25px;
+  margin: 10px 5px;
+  font-style: italic;
+  color: rgb(221, 220, 220);
+}
+
+.search-container .result-container .result-content .artists .item-container {
+  position: relative;
+  display: block;
+  height: 280px;
+  width: 100%;
+  margin-top: 60px;
+  white-space: nowrap;
+  overflow-x: scroll;
+  background-color: transparent;
+}
+
+.search-container .result-container .result-content .artists .item-container .artists-item {
+  position: relative;
+  display: inline-block;
+  align-items: center;
+  margin: 0;
+  margin-top: 25px;
+  margin-left: 20px;
+  height: 150px;
+  width: 150px;
+  background-color: transparent;
+}
+
+.search-container .result-container .result-content .artists .item-container .artists-item:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.search-container .result-container .result-content .artists .item-container .artists-item img.artists-image {
+  position: relative;
+  display: block;
+  margin: 0;
+  margin-left: 7.5px;
+  border-radius: 90%;
+  height: 90%;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.24);
+}
+
+.search-container .result-container .result-content .artists .item-container .artists-item span.artists-name {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  margin: 7px 0;
+  font-family: sans-serif;
+  font-size: 15px;
+  color: rgb(238, 237, 237);
+}
+
+.search-container .result-container .result-content .albums {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 340px;
+  width: 100%;
+  background-color: transparent;
+}
+
+.search-container .result-container .result-content .albums .header {
+  position: absolute;
+  display: flex;
+  height: 60px;
+  width: 95%;
+  background-color: transparent;
+} 
+
+.search-container .result-container .result-content .albums .header span {
+  display: block;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 25px;
+  margin: 10px 5px;
+  font-style: italic;
+  color: rgb(221, 220, 220);
+}
+
+.search-container .result-container .result-content .albums .albums-container {
+  position: relative;
+  display: block;
+  height: 100%;
+  width: 100%;
+  margin-top: 60px;
+  white-space: nowrap;
+  overflow-x: scroll;
+  background-color: transparent;
+}
+
+.search-container .result-container .result-content .albums .albums-container .albums-item {
+  position: relative;
+  display: inline-block;
+  align-items: center;
+  margin: 0;
+  margin-top: 25px;
+  margin-left: 12.5px;
+  margin-right: 12.5px;
+  border-radius: 6px;
+  height: 225px;
+  width: 180px;
+  background-color: transparent;
+}
+
+.search-container .result-container .result-content .albums .albums-container:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.search-container .result-container .result-content .albums .albums-container img.albums-image {
+  position: relative;
+  display: block;
+  margin: 0;
+  border-radius: 5px;
+  width: 100%;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.24);
+}
+
+.search-container .result-container .result-content .albums .albums-container span.albums-name {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 15px;
+  color: rgb(238, 237, 237);
+}
+
+.search-container .result-container .result-content .albums .albums-container span.albums-artist {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 15px;
+  color: rgb(170, 167, 167);
+}
+
+.search-container .result-container .result-content .songs {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 350px;
+  width: 100%;
+  background-color: transparent;
+  margin-bottom: 15px;
+}
+
+.search-container .result-container .result-content .songs .header {
+  position: absolute;
+  display: flex;
+  height: 60px;
+  width: 95%;
+}
+
+.search-container .result-container .result-content .songs .header span {
+  display: block;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 25px;
+  margin: 10px 5px;
+  font-style: italic;
+  color: rgb(221, 220, 220);
+}
+
+.search-container .result-container .result-content .songs .songs-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin-top: 60px;
+  white-space: normal;
+  overflow-x: scroll;
+  background-color: transparent;
+}
+
+.search-container .result-container .result-content .songs .songs-container .song-item {
+  position: relative;
+  display: inline-block;
+  align-items: center;
+  height: 75px;
+  width: 95%;
+  border-style: solid;
+  border-width: 0;
+  border-bottom-width: 1px;
+  border-color: rgb(61, 60, 61);
+  background-color: transparent;
+}
+
+.search-container .result-container .result-content .songs .songs-container .song-item:hover {
+  cursor: pointer;
+  background-color: #01161f;
+}
+
+.search-container .result-container .result-content .songs .songs-container .song-item:hover .song-datas .song-add-button {
+  visibility: visible;
+}
+
+.search-container .result-container .result-content .songs .songs-container .song-item .image-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  display: block;
+  padding: 2.5px;
+  height: 70px;
+  width: 70px;
+  background-color: transparent;
+}
+
+.search-container .result-container .result-content .songs .songs-container .song-item .image-container img {
+  position: relative;
+  display: block;
+  margin-top: 2.5px;
+  width: 95%;
+  height: 95%;
+  border-radius: 5px;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.search-container .result-container .result-content .songs .songs-container .song-item .song-datas {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 70px;
+  width: 91.5%;
+  height: 100%;
+  background-color: transparent;
+}
+
+.search-container .result-container .result-content .songs .songs-container .song-item .song-datas .song-meta-datas {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100%;
+  width: 46%;
+  background-color: transparent;
+}
+
+.search-container .result-container .result-content .songs .songs-container .song-item .song-datas .song-meta-datas span.song-name {
+  position: relative;
+  display: block;
+  height: 70%;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 15px;
+  color: rgb(221, 220, 220);
+  text-align: left;
+  padding-left: 10px;
+  padding-top: 13.5px;
+  white-space: nowrap;
+  overflow-x: scroll;
+  background-color: transparent;
+}
+
+.search-container .result-container .result-content .songs .songs-container .song-item .song-datas .song-meta-datas span.song-artist {
+  position: relative;
+  display: block;
+  height: 80%;
+  width: 100%;
+  padding-left: 10px;
+  font-family: sans-serif;
+  font-size: 15px;
+  color: rgb(126, 126, 126);
+}
+
+.search-container .result-container .result-content .songs .songs-container .song-item .song-datas .song-album {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100%;
+  width: 44%;
+  background-color: transparent;
+}
+
+.search-container .result-container .result-content .songs .songs-container .song-item .song-datas .song-add-button {
+  visibility: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 50%;
+  width: 10%;
+  background-color: transparent;
+}
+
+.search-container .result-container .result-content .songs .songs-container .song-item .song-datas .song-add-button:hover {
   cursor: pointer;
   opacity: 0.7;
 }

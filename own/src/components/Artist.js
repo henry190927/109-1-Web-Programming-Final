@@ -1,37 +1,36 @@
 import React, { useEffect, useRef, useState } from 'react';
-import './Components.css';
-import './SubComponents.css';
+import './SubComponents.css'
 
 import test_db from '../test_db';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import Artist from './Artist';
+import Album from './Album';
 
-const Artists = ({ setSongName }) => {
-  const songs = test_db.song;
+const Artist = ({ setSongName , artist }) => {
+  const songs = test_db.song.filter(song => song.artist === artist);
   const [isSelected, setIsSelected] = useState(false);
-  const [artistselected, setArtistSelected] = useState(null);
-
+  const [albumselected, setAlbumSelected] = useState(null);
+  
   return (
-    <div className="artists-container">
+    <div className="artist-container">
       {!isSelected ? 
       songs.map((song, index) => {
         return (
-          <div className="artists-item" key={index}
+          <div className="albums-item" key={index}
             onClick={() => {
               setIsSelected(true);
-              setArtistSelected(song.artist);
+              setAlbumSelected(song.album)
             }}
           >
-            <img src={song.artist_image} className="artists-image"/>
-            <span>{song.artist}</span>
-          </div>
+            <img src={song.album_image} className="albums-image" />
+            <span className="albums-name">{song.album}</span>
+        </div>
         )
       }) : 
       <div className="back-button-header">
         <div className="back-container"
           onClick={() => {
             setIsSelected(false);
-            setArtistSelected(null);
+            setAlbumSelected(null);
           }} >
           <ArrowLeftOutlined style={{
             marginTop: '18px', 
@@ -40,15 +39,16 @@ const Artists = ({ setSongName }) => {
             color: 'rgb(200, 200, 200)'
           }}/>
         </div>
-        <span className="back-info">Back to Artists</span>
+        <span className="back-info">Back to Albums</span>
       </div>}
-      {artistselected ? 
-      <Artist 
+      {albumselected ? 
+      <Album 
         setSongName={setSongName}
-        artist={artistselected}
-      /> : null}
+        album={albumselected}
+      /> 
+      : null}
     </div>
   )
 }
 
-export default Artists;
+export default Artist;
