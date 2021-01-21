@@ -5,8 +5,8 @@ const song = [
     artist_image: "https://i.kfs.io/artist/global/18700060,0v1/fit/300x300.jpg",
     album: "房間裡的大象",
     album_image: "https://i.kfs.io/album/global/65889785,1v2/fit/500x500.jpg",
-    audio: "https://download.fresh-music-free.buzz/s/Khalid-Location.mp3",
-    time: 222
+    audio: "http://docs.google.com/uc?export=open&id=1aJoGKep7k7rgwKYUTBiFh17-SpTzrAJL",
+    time: 205
   }, 
   {
     name: "根本不是我對手",

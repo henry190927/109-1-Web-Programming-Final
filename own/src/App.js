@@ -308,7 +308,7 @@ function App() {
   // Define Login state
   const [loggedIn, setLoggedIn] = useState(false);
   // Define side menu click item
-  const [clickItem, setClickItem] = useState('Playlists')
+  const [clickItem, setClickItem] = useState('Browse')
   // Define current playing song name 
   const [songName, setSongName] = useState("")
 
