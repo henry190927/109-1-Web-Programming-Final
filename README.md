@@ -4,6 +4,21 @@
 ## (Group 86) Musify
 ### Group Member / 組長：吳育嘉 / 組員：葉曜德
 
+#### [DEMO LINK] https://www.youtube.com/watch?v=qicJlAjLPDM&feature=youtu.be
+#### [DEPLOY LINK] 一直失敗沒有辦法deploy成功...
+
+#### [執行方式]
+~~~python
+cd own
+~~~
+進到資料夾後分別執行 
+~~~python
+yarn server
+~~~
+~~~python
+yarn start
+~~~
+
 #### [介紹]
   這個服務的目的是希望可以建立一個在線上的音樂播放器以及播放歌曲的介面，用戶可以瀏覽頁面上的不同的歌曲、創作者以及專輯的資訊，
   此外也能夠將喜歡的歌曲隨時加入或是移除自己的database，並且還能夠建立屬於自己的播放清單，並將建立好的播放清單publish到社群上，
