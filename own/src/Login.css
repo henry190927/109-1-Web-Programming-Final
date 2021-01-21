@@ -43,10 +43,10 @@
   justify-content: center;
 }
 
-.Login-text {             
+.Login-text {      
+  position: relative;       
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
   width: inherit;
   position: absolute;
@@ -55,18 +55,21 @@
 
 .Login-title h1 {
   margin: 0;
-  font-size: 3em;
+  font-size: 4em;
   margin-bottom: 60px;
   margin-top: 80px;
   text-align: center;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .Login-text span {
+  position: relative;
+  display: block;
   margin: 0;
-  font-size: 1.25em;
+  font-size: 1.35em;
   font-style: italic;
   color: #B6B6B6;
-  font-family: "Great Vibes";
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   text-align: center;
 }
 

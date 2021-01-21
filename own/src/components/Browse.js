@@ -2,16 +2,23 @@ import React, { useEffect, useRef, useState } from 'react';
 import './Components.css';
 import './SubComponents.css';
 
-import test_db from '../test_db';
 import { ArrowLeftOutlined , PlusOutlined } from '@ant-design/icons'
 import Artist from './Artist';
 import Album from './Album';
 
-const Browse = ({ setSongName }) => {
-  const songs = test_db.song;
+const Browse = ({ username, setSongName, AppMusic }) => {
+  const songs = AppMusic;
   const [isSelected, setIsSelected] = useState(false);
   const [albumselected, setAlbumSelected] = useState(null);
   const [artistselected, setArtistSelected] = useState(null);
+
+  // filter out artists
+  let artists = []
+  songs.map(song => {
+    if (!artists.some(s => song.artist === s.artist)) {
+      artists.push(song)
+    }
+  })
   
   return (
     <div className="browse-top">
@@ -23,7 +30,7 @@ const Browse = ({ setSongName }) => {
           </div>
 
           <div className="albums-container">
-            {songs.map((song, index) => {
+            {artists.map((song, index) => {
               return (
                 <div className="albums-item" key={index}
                   onClick={() => {
@@ -46,7 +53,7 @@ const Browse = ({ setSongName }) => {
           </div>
 
           <div className="artists-container">
-            {songs.map((song, index) => {
+            {artists.map((song, index) => {
               return (
                 <div className="artists-item" key={index} 
                   onClick={() => {
@@ -96,7 +103,7 @@ const Browse = ({ setSongName }) => {
           </div>
 
           <div className="albums-container">
-            {songs.map((song, index) => {
+            {artists.map((song, index) => {
               return (
                 <div className="albums-item" key={index}
                   onClick={() => {
@@ -137,13 +144,16 @@ const Browse = ({ setSongName }) => {
       </div>}
       {albumselected ? 
         <Album 
+          username={username}
           setSongName={setSongName}
           album={albumselected}
+          AppMusic={AppMusic}
         />
       : artistselected ? 
         <Artist 
           setSongName={setSongName}
           artist={artistselected}
+          AppMusic={AppMusic}
         />
       : null}
     </div>

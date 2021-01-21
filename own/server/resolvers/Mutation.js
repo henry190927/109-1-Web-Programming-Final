@@ -1,134 +1,250 @@
 const Mutation = {
-  findOrCreateUser: async (parent, args, { Data }, info) => {
-    const userName = args.user;
-    const findUser = await Data.findOne({ name: userName });
+  findOrCreateUser: async (parent, args, { Data, pubsub }, info) => {
+    const userName = args.data.name;
+    const userPassword = args.data.password;
     
+    const myServer = await Data.findOne({ name: "henry_the_server" });
+    const findUser = await Data.findOne({ name: userName });
+
     if (!findUser) {
       const newUser = new Data({
-        name: args.user,
-        message: []
+        name: userName,
+        password: userPassword,
+        appmusic: [...myServer.appmusic],
+        database: []
       })
-      const new_user_update = await newUser.save(function(err, res) {
+
+      const new_user_create = await newUser.save(function(err, res) {
         if (err) return err;
+
+        pubsub.publish('appmusic', {
+          appmusic: {
+            mutation:'LOGIN', 
+            data: {
+              name: userName,
+              password: userPassword,
+              appmusic: [...myServer.appmusic],
+              database: []
+            }
+          }
+        })
       })
+
       return newUser;
     } else {
+      findUser.appmusic = [...myServer.appmusic];
+
+      const find_user_update = await findUser.save(function(err, res) {
+        if (err) return err;
+      })
+
       return findUser;
     }
   },
-  createMessage: async (parent, args, { Data, pubsub }, info) => {
-    // First, find the user who send this message
-    const userName = args.data.sendBy;
+  addSongToDataBase: async (parent, args, { Data, pubsub }, info) => {
+    const songName = args.data.name;
+    const userName = args.data.user;
+
     const user = await Data.findOne({ name: userName });
 
-    // Next, also find or create the receiver who will get this message
-    const receiverName = args.data.sendTo   
-    const receiver = await Data.findOne({ name: receiverName }); 
-
-    const newMessage = {
-      sendBy: userName,
-      sendTo: receiverName,
-      body: args.data.body
+    const songObject = user.appmusic.find(song => song.name === songName);
+    const newSong = {
+      name: songObject.name,
+      artist: songObject.artist,
+      album: songObject.album,
+      artist_image: songObject.artist_image,
+      album_image: songObject.album_image,
+      audio: songObject.audio,
+      time: songObject.time
     }
     
-    if (!user) {
-      throw new Error('User not found');
-    } else {
-      // Push this message to that user's messages list
-      user.message.push(newMessage);
+    if (!user.database.some(song => song.name === newSong.name && song.artist === newSong.artist)) {
+      user.database.push(newSong);
+    }
 
-      const user_update = await user.save(function(err, res) {
-        if (err) return err;
+    const update_database = await user.save(function(err, res) {
+      if (err) return err;
 
-        pubsub.publish('message', {
-          message: {
-            mutation: 'CREATED', 
-            data: {
-              sendBy: userName,
-              sendTo: receiverName,
-              body: args.data.body
-            }
+      pubsub.publish('addsongtodb', {
+        addsongtodb: {
+          mutation: 'ADDSONGTODB',
+          data: {
+            name: userName,
+            password: user.password,
+            appmusic: user.appmusic,
+            database: user.database
           }
-        })
-        
-      });
-    }
+        }
+      })
+    })
 
-    if (!receiver) {
-      const newReceiver = new Data({
-        name: receiverName,
-        message: []
-      });
-      newReceiver.message.push({
-        sendBy: userName,
-        sendTo: receiverName,
-        body: args.data.body
-      })
-      const newReceiver_update = await newReceiver.save(function(err, res) {
-        if (err) return err;
-      })
-    } else {
-      receiver.message.push({
-        sendBy: userName,
-        sendTo: receiverName,
-        body: args.data.body
-      })
-      const receiver_update = await receiver.save(function(err, res){
-        if (err) return err;
-      })
-    }
-    
-    return newMessage; 
+    return newSong;
   },
-  clearMessage: async (parent, args, { Data, pubsub }, info) => {
-    if (!args.user) {
-      const clear_all_update = await Data.deleteMany(function(err, res) {
-        if (err) return err;
+  removeSongFromDataBase: async (parent, args, { Data, pubsub }, info) => {
+    const songName = args.data.name;
+    const userName = args.data.user;
 
-        pubsub.publish('clean', {
-          clean: {
-            mutation: 'CLEARED',
-            data: []
+    const user = await Data.findOne({ name: userName });
+
+    const songObject = user.database.find(song => song.name === songName);
+    const newSongs = user.database.filter(song => song.name !== songName);
+    user.database = [...newSongs];
+
+    const update_database = await user.save(function(err, res) {
+      if (err) return err;
+
+      pubsub.publish('removesongfromdb', {
+        removesongfromdb: {
+          mutation: 'REMOVESONGFROMDB',
+          data: {
+            name: userName,
+            password: user.password,
+            appmusic: user.appmusic,
+            database: user.database
           }
-        })
+        }
       })
-      return [];
-    } else {
-      const userName = args.user;
-      const user = await Data.findOne({ name: userName });
-      if (!user) {
-        throw new Error('User not found')
-      } else {
-        const clearMessages = user.message.filter((msg) => msg.sendBy === userName);
-        const validMessages = user.message.filter((msg) => msg.sendBy !== userName);
-        // clean local user's messages
-        user.message = validMessages;
+    })
 
-        // clean corresponding receivers' messages
-        clearMessages.map(async (msg) => {
-          const receiver = await Data.findOne({ name: msg.sendTo });
-          const newMessages = receiver.message.filter((msg) => msg.sendBy !== userName);
-          receiver.message = newMessages;
+    return songObject;
+  },
+  addAlbumToDataBase: async (parent, args, { Data, pubsub }, info) => {
+    const albumName = args.data.name;
+    const userName = args.data.user;
 
-          const receiver_update = await receiver.save(function(err, res) {
-            if (err) return err;
-          })
-        })
+    const user = await Data.findOne({ name: userName });
 
-        const clear_update = await user.save(function(err, result) {
-          if (err) return err;
-
-          pubsub.publish('clean', {
-            clean: {
-              mutation: 'CLEARED',
-              data: validMessages
-            }
-          })
-        })
-        return clearMessages;
-      }
+    const albumSongs = user.appmusic.filter(song => song.album === albumName);
+    if (!user.database.some(song => song.album === albumName)) {
+      user.database = [...user.database, ...albumSongs];
     }
-  }
+
+    const album_update = await user.save(function(err, res) {
+      if (err) return err;
+
+      pubsub.publish('addalbumtodb', {
+        addalbumtodb: {
+          mutation: 'ADDALBUMTODB',
+          data: {
+            name: userName,
+            password: user.password,
+            appmusic: user.appmusic,
+            database: user.database
+          }
+        }
+      })
+    })
+
+    return albumSongs;
+  },
+  createServer: async (parent, args, { Data }, info) => {
+    const serverName = args.data.name;
+    const serverPassword = args.data.password;
+
+    const existServer = await Data.findOne({ name: "henry_the_server" });
+
+    if (existServer) {
+      return existServer;
+    }
+
+    const newServer = new Data({
+      name: serverName,
+      password: serverPassword,
+      appmusic: [],
+      database: []
+    })
+
+    const new_server_create = await newServer.save(function(err, res) {
+      if (err) return err;
+    })
+
+    return newServer;
+  },
+  createAppMusicServer: async (parent, args, { Data }, info) => {
+    const myServer = await Data.findOne({ name: "henry_the_server" });
+    if (!myServer) {
+      throw new Error('Typing wrong input!');
+    }
+
+    const song = args.data
+    // handle songs
+    const newSong = {
+      name: song.name,
+      artist: song.artist,
+      album: song.album,
+      artist_image: song.artist_image,
+      album_image: song.album_image,
+      audio: song.audio,
+      time: song.time
+    }
+
+    if (!myServer.appmusic.some(song => song.name === newSong.name && song.artist === newSong.artist)) {
+      myServer.appmusic.push(newSong);
+    }
+
+    const server_appmusice_create = await myServer.save(function(err, res) {
+      if (err) return err;
+    })
+
+    return newSong;
+  },
+  clearAll: async (parent, args, { Data }, info) => {
+    if (args.user === "henry_the_server") {
+      const leftUser = await Data.findOne({ name: args.user });
+
+      const clear_all_data_but_server = await Data.deleteMany({name: { $ne: "henry_the_sesrver"} },
+        function(err, res) {
+          if (err) return err;
+      })
+
+      const newServer = new Data({
+        name: leftUser.name,
+        password: leftUser.password,
+        appmusic: [...leftUser.appmusic],
+        database: []
+      })
+
+      const left_user_save = await newServer.save(function(err, res) {
+        if (err) return err;
+      })
+
+      return [newServer];
+    }
+
+    const clear_all_data = Data.deleteMany(function(err, res) {
+      if (err) return err;
+    })
+
+    return [];
+  },
+  deleteOne: async (parent, args, { Data }, info) => {
+    const findUser = await Data.findOne({ name: args.user });
+    if (!findUser) {
+      throw new Error("Invalid user");
+    }
+
+    const delete_one = await Data.deleteOne({name: args.user }, function(err, res) {
+      if (err) return err;
+    })
+
+    return findUser;
+  },
+  deleteOneSong: async (parent, args, { Data }, info) => {
+    const findServer = await Data.findOne({ name: "henry_the_server" });
+    if (!findServer) {
+      throw new Error("Invalid server");
+    }
+
+    const newSongs = findServer.appmusic.filter(song => song.name !== args.name);
+    findServer.appmusic = [...newSongs]
+
+    const delete_one_song = await findServer.save(function(err, res) {
+      if (err) return err;
+    })
+
+    return findServer;
+  },
+
 }
 
 export { Mutation as default }

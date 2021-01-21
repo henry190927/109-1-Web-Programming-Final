@@ -6,15 +6,23 @@ import test_db from '../test_db';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import Album from './Album';
 
-const Albums = ({ setSongName }) => {
-  const songs = test_db.song;
+const Albums = ({ username, setSongName, AppMusic, DataBase }) => {
+  const songs = DataBase;
   const [albumselected, setAlbumSelected] = useState(null);
   const [isSelected, setIsSelected] = useState(false);
+
+  // filter out albums
+  let albums = []
+  songs.map(song => {
+    if (!albums.some(s => song.album === s.album)) {
+      albums.push(song);
+    }
+  })
 
   return (
     <div className="albums-container">
       {!isSelected ? 
-      songs.map((song, index) => {
+      albums.map((song, index) => {
         return (
           <div className="albums-item" 
             onClick={() => {
@@ -46,8 +54,10 @@ const Albums = ({ setSongName }) => {
       }
       {albumselected ? 
       <Album 
+        username={username}
         setSongName={setSongName}
         album={albumselected}
+        AppMusic={DataBase}
       /> 
       : null}
     </div>

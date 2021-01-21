@@ -1,47 +1,80 @@
 type Query {
   users: [User!]!
-  messages(user: String!): [Message!]!
+  appmusic(user: String!): [Song!]!
+  database(user: String!): [Song!]!
 }
 
 type Mutation {
-  findOrCreateUser(user: String!): User!
-  createMessage(data: CreateMessageInput!): Message!
-  clearMessage(user: String): [Message]
+  findOrCreateUser(data: UserInput!): User!
+  addSongToDataBase(data: ChangeSongInput!): Song!
+  removeSongFromDataBase(data: ChangeSongInput!): Song!
+  addAlbumToDataBase(data: ChangeSongInput!): [Song!]!
+  # Henry's hard-coded functions
+  createServer(data: UserInput!): User!
+  createAppMusicServer(data: SongInput!): Song!
+  clearAll(user: String!): [User]
+  deleteOne(user: String): User
+  deleteOneSong(name: String): User
 }
 
 type Subscription {
-  message: MessageSubscriptionPayload!
-  clean: CleanSubscriptionPayload!
+  appmusic: AppMusicSubscriptionPayload!
+  addsongtodb: DataBaseSubscriptionPayload!
+  removesongfromdb: DataBaseSubscriptionPayload!
+  addalbumtodb: DataBaseSubscriptionPayload!
 }
 
-type Message {
-  sendBy: String
-  sendTo: String
-  body: String
+enum MutationType {
+  LOGIN
+  ADDSONGTODB
+  REMOVESONGFROMDB
+  ADDALBUMTODB
+}
+
+input UserInput {
+  name: String!
+  password: String!
+}
+
+input SongInput {
+  name: String!
+  artist: String!
+  album: String!
+  artist_image: String!
+  album_image: String!
+  audio: String!
+  time: Int!
+}
+
+input ChangeSongInput {
+  name: String!
+  user: String!
+}
+
+type Song {
+  name: String!
+  artist: String!
+  album: String!
+  artist_image: String!
+  album_image: String!
+  audio: String!
+  time: Int!
 }
 
 type User {
   name: String
-  message: [Message!]!
+  password: String
+  appmusic: [Song]
+  database: [Song]
+  # playlists: Playlist!
 }
 
-input CreateMessageInput {
-  sendBy: String!
-  sendTo: String!
-  body: String!
-}
-
-enum MutationType {
-  CREATED
-  CLEARED
-}
-
-type MessageSubscriptionPayload {
+type AppMusicSubscriptionPayload {
   mutation: MutationType!
-  data: Message
+  data: User
 }
 
-type CleanSubscriptionPayload {
+type DataBaseSubscriptionPayload {
   mutation: MutationType!
-  data: [Message]
+  data: User
 }

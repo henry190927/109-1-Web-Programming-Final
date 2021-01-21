@@ -11,13 +11,13 @@ const pubsub = new PubSub();
 const mongoose = require('mongoose')
 // const WebSocket = require('ws')
 
-const Data = require('./models/message')
+const Data = require('./models/data')
 
 const server = new GraphQLServer({
   typeDefs: './server/schema.graphql',
   resolvers: {
     Query,
-    Mutation, 
+    Mutation,
     Subscription
   },
   context: {

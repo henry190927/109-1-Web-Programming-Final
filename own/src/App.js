@@ -10,21 +10,21 @@ import Albums from './components/Albums';
 import Songs from './components/Songs';
 import Browse from './components/Browse';
 import Search from './components/Search';
-import Album from './components/Album';
-import Artist from './components/Artist';
+import Playlists from './components/Playlists';
 
-// import { useQuery, useMutation } from '@apollo/client';
-// import { 
-//   MESSAGES_QUERY,
-//   CREATE_MESSAGE_MUTATION,
-//   FIND_OR_CREATE_USER_MUTATION,
-//   CLEAN_USER_MESSAGE_MUTATION,
-//   CLEAN_SUBSCRIPTION,
-//   MESSAGE_SUBSCRIPTION
-// } from './graphql';
+import { useQuery, useMutation } from '@apollo/client';
+import { 
+  APPMUSIC_QUERY,
+  DATABASE_QUERY,
+  FIND_OR_CREATE_USER_MUTATION,
+  APPMUSIC_SUBSCRIPTION,
+  REMOVE_SONG_FROM_DB_SUBSCRIPTION,
+  ADD_SONG_TO_DB_SUBSCRIPTION,
+  ADD_ALBUM_TO_DB_SUBSCRIPTION
+} from './graphql';
 
-function MusicPlayer({ songName }) {  
-  const song = test_db.song.find(song => song.name === songName);
+function MusicPlayer({ songName, AppMusic }) {  
+  const song = AppMusic.find(song => song.name === songName);
 
   const [durationTime, setDurationTime] = useState(0);
   const [progressTime, setProgressTime] = useState(0);
@@ -33,8 +33,6 @@ function MusicPlayer({ songName }) {
   const [playpauseIcon, setPlayPauseIcon] = useState("https://521dimensions.com/img/open-source/amplitudejs/examples/dynamic-songs/play.svg");
   const [audio, setAudio] = useState(new Audio(song.audio))
   const [localSong, setLocalSong] = useState('');
-
-  // const audio = new Audio(song.audio);
   
   if (localSong !== songName) {
     audio.pause();
@@ -161,8 +159,10 @@ function MusicPlayer({ songName }) {
   )
 }
 
-function Main({ username, setUsername, setUserpassword, setLoggedIn, clickItem, setClickItem, setSongName }) {
-  const [BROWSE, SEARCH, ARTISTS, ALBUMS, SONGS, PLAYLISTS] = [0, 1, 2, 3, 4, 5];
+function Main({ 
+  username, setUsername, setUserpassword, setLoggedIn, 
+  clickItem, setClickItem, setSongName, AppMusic, DataBase }) {
+  const [BROWSE, SEARCH, ARTISTS, ALBUMS, SONGS, PLAYLISTS, MEDIA] = [0, 1, 2, 3, 4, 5, 6];
 
   const handleClickItem = (clickItem) => {
     switch (clickItem) {
@@ -184,6 +184,9 @@ function Main({ username, setUsername, setUserpassword, setLoggedIn, clickItem, 
       case PLAYLISTS:
         setClickItem('Playlists');
         break;
+      case MEDIA:
+        setClickItem('Media');
+        break;
       default:
         setClickItem('Browse');
         break;
@@ -193,16 +196,40 @@ function Main({ username, setUsername, setUserpassword, setLoggedIn, clickItem, 
   const handleScreen = (screen) => {
     switch (screen) {
       case "Browse":
-        return <Browse setSongName={setSongName}/>;
+        return <Browse 
+          username={username}
+          setSongName={setSongName}
+          AppMusic={AppMusic}
+        />;
       case "Search":
-        return <Search setSongName={setSongName}/>;
+        return <Search 
+          username={username}
+          setSongName={setSongName}
+          AppMusic={AppMusic}
+          DataBase={DataBase}
+        />;
       case "Artists":
-        return <Artists setSongName={setSongName}/>;
+        return <Artists 
+          setSongName={setSongName}
+          AppMusic={AppMusic}
+          DataBase={DataBase}
+        />;
       case "Albums":
-        return <Albums setSongName={setSongName}/>;
+        return <Albums 
+          username={username}
+          setSongName={setSongName}
+          AppMusic={AppMusic}
+          DataBase={DataBase}
+        />;
       case "Songs":
-        return <Songs setSongName={setSongName}/>;
+        return <Songs 
+          username={username}
+          setSongName={setSongName}
+          DataBase={DataBase}
+        />;
       case "Playlists":
+        return <Playlists />;
+      case "Media":
         return null;
       default:
         return null;
@@ -213,7 +240,8 @@ function Main({ username, setUsername, setUserpassword, setLoggedIn, clickItem, 
     <div className="Main-canvas">
       <div className="Main-menu">
         <div className="Main-notification">
-          Welcome, {username}!
+          <span>Welcome,</span>
+          <span>{username}!</span>
         </div>
         <div className="Main-genre">
           App Music
@@ -244,7 +272,7 @@ function Main({ username, setUsername, setUserpassword, setLoggedIn, clickItem, 
           <span>Playlists</span>
           <BarsOutlined style={{padding: 10}} />
         </div>
-        <div className="Main-media">
+        <div className="Main-media" onClick={() => handleClickItem(MEDIA)}>
           <span>Media</span>
           <TeamOutlined style={{padding: 10}} />
         </div>
@@ -278,15 +306,142 @@ function App() {
   const passwordRef = useRef(null);
 
   // Define Login state
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   // Define side menu click item
-  const [clickItem, setClickItem] = useState('Browse')
+  const [clickItem, setClickItem] = useState('Playlists')
   // Define current playing song name 
-  const [songName, setSongName] = useState("在這座城市遺失了你 (Where I Lost Us)")
+  const [songName, setSongName] = useState("")
 
   // Declare User name/password
-  const [username, setUsername] = useState('Henry');
+  const [username, setUsername] = useState('');
   const [userpassword, setUserpassword] = useState('');
+
+  // communicate with back-end
+  const query_user_appmusic = useQuery(
+    APPMUSIC_QUERY, { variables: { userName: username }}
+  );
+
+  const query_user_database = useQuery(
+    DATABASE_QUERY, { variables: { userName: username }}
+  );
+
+  const query_server = useQuery(
+    APPMUSIC_QUERY, { variables: { userName: "henry_the_server" }}
+  );
+
+  const [findOrCreateUser] = useMutation(FIND_OR_CREATE_USER_MUTATION);
+
+  const handleUserLogin = async () => {
+    if (!username) {
+      displayStatus({
+        type: 'error',
+        msg: 'Please type a valid user name.'
+      })
+      return 
+    }
+
+    if (!userpassword) {
+      displayStatus({
+        type: 'error',
+        msg: 'Please type a valid password.'
+      })
+      return 
+    }
+
+    await findOrCreateUser({
+      variables: {
+        name: username,
+        password: userpassword
+      }
+    })
+
+    setLoggedIn(true);
+  }
+
+  const displayStatus = (s) => {
+    if (s.msg) {
+      const { type, msg } = s
+      const content = {
+        content: msg,
+        duration: 0.5
+      }
+
+      switch (type) {
+        case 'success':
+          message.success(content)
+          break
+        case 'info':
+          message.info(content)
+          break
+        case 'danger':
+        default:
+          message.error(content)
+          break
+      }
+    }
+  }
+
+  const subscribetoMore_app = query_user_appmusic.subscribeToMore;
+  useEffect(() => {
+    subscribetoMore_app({
+      document: APPMUSIC_SUBSCRIPTION,
+      updateQuery: (prev, { subscriptionData }) => {
+        if (!subscriptionData.data) return prev;
+        const newUser = subscriptionData.data.appmusic.data;
+
+        return {
+          ...prev,
+          appmusic: [...newUser.appmusic]
+        }
+      }
+    })
+  }, [subscribetoMore_app])
+
+  const subscribeToMore_db = query_user_database.subscribeToMore;
+  useEffect(() => {
+    subscribeToMore_db({
+      document: ADD_SONG_TO_DB_SUBSCRIPTION,
+      updateQuery: (prev, { subscriptionData }) => {
+        if (!subscriptionData.data) return prev;
+        const newUser = subscriptionData.data.addsongtodb.data;
+
+        return {
+          ...prev,
+          database: [...newUser.database]
+        }
+      }
+    })
+  }, [subscribeToMore_db])
+
+  useEffect(() => {
+    subscribeToMore_db({
+      document: REMOVE_SONG_FROM_DB_SUBSCRIPTION,
+      updateQuery: (prev, { subscriptionData }) => {
+        if (!subscriptionData.data) return prev;
+        const newUser = subscriptionData.data.removesongfromdb.data;
+
+        return {
+          ...prev,
+          database: [...newUser.database]
+        }
+      }
+    })
+  }, [subscribeToMore_db])
+
+  useEffect(() => {
+    subscribeToMore_db({
+      document: ADD_ALBUM_TO_DB_SUBSCRIPTION,
+      updateQuery: (prev, { subscriptionData }) => {
+        if (!subscriptionData.data) return prev;
+        const newUser = subscriptionData.data.addalbumtodb.data;
+
+        return {
+          ...prev,
+          database: [...newUser.database]
+        }
+      }
+    })
+  }, [subscribeToMore_db])
 
   if (!loggedIn) {
     return (
@@ -319,14 +474,14 @@ function App() {
             <Input
               placeholder="Password..."
               ref={passwordRef}
-              type="password"
+              // type="password"
               value={userpassword}
               onChange={(event) => setUserpassword(event.target.value)}
               onKeyUp={(event) => {
                 if (event.key === 'Enter') {
                   nameRef.current.focus();
                   if (username && userpassword) {
-                    setLoggedIn(true);
+                    handleUserLogin();
                   }
                 }
               }}
@@ -335,6 +490,11 @@ function App() {
           <div className="Login-button">
             <Button 
               disabled={!username || !userpassword}
+              onClick={() => {
+                if (username && userpassword) {
+                  handleUserLogin();
+                }
+              }}
             >Log In</Button>
           </div>
         </div>
@@ -351,14 +511,17 @@ function App() {
           clickItem={clickItem}
           setClickItem={setClickItem}
           setSongName={setSongName}
+          AppMusic={!query_user_appmusic.data.appmusic.length === 0 ?
+            query_user_appmusic.data.appmusic : query_server.data.appmusic}
+          DataBase={query_user_database.data.database}
         />
         {songName ? 
         <MusicPlayer 
           songName={songName}
+          AppMusic={!query_user_appmusic.data.appmusic.length === 0 ?
+            query_user_appmusic.data.appmusic : query_server.data.appmusic}
+          DataBase={query_user_database.data.database}
         /> : null}
-        {/* <MusicPlayer 
-          songName={songName}
-        /> */}
       </div>
     )
   }

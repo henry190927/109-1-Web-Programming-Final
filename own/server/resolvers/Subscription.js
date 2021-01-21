@@ -1,14 +1,26 @@
 const Subscription = {
-  message: {
+  appmusic: {
     subscribe: async (parent, args, { pubsub }, info) => {
-      const message = await pubsub.asyncIterator('message');
-      return message;
+      const appmusic = await pubsub.asyncIterator('appmusic');
+      return appmusic;
     }
   },
-  clean: {
+  addsongtodb: {
     subscribe: async (parent, args, { pubsub }, info) => {
-      const clean = await pubsub.asyncIterator('clean');
-      return clean;
+      const addsongtodb = await pubsub.asyncIterator('addsongtodb');
+      return addsongtodb;
+    }
+  },
+  removesongfromdb: {
+    subscribe: async (parent, args, { pubsub }, info) => {
+      const removesongfromdb = await pubsub.asyncIterator('removesongfromdb');
+      return removesongfromdb;
+    }
+  },
+  addalbumtodb: {
+    subscribe: async (parent, args, { pubsub }, info) => {
+      const addalbumtodb = await pubsub.asyncIterator('addalbumtodb');
+      return addalbumtodb;
     }
   }
 }

@@ -6,15 +6,23 @@ import test_db from '../test_db';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import Artist from './Artist';
 
-const Artists = ({ setSongName }) => {
-  const songs = test_db.song;
+const Artists = ({ setSongName, AppMusic, DataBase }) => {
+  const songs = DataBase;
   const [isSelected, setIsSelected] = useState(false);
   const [artistselected, setArtistSelected] = useState(null);
+
+  // filter out artists
+  let artists = []
+  songs.map(song => {
+    if (!artists.some(s => song.artist === s.artist)) {
+      artists.push(song)
+    }
+  })
 
   return (
     <div className="artists-container">
       {!isSelected ? 
-      songs.map((song, index) => {
+      artists.map((song, index) => {
         return (
           <div className="artists-item" key={index}
             onClick={() => {
@@ -46,6 +54,7 @@ const Artists = ({ setSongName }) => {
       <Artist 
         setSongName={setSongName}
         artist={artistselected}
+        AppMusic={DataBase}
       /> : null}
     </div>
   )

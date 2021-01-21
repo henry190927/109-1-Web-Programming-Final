@@ -1,44 +1,102 @@
 import { gql } from '@apollo/client';
 
 export const FIND_OR_CREATE_USER_MUTATION = gql`
-  mutation FindOrCreateUser($userName: String!) {
-    findOrCreateUser(user: $userName) {
-      name
-      message {
-        sendBy
-        sendTo
-        body
-      }
-    }
-  }
-`;
-
-export const CREATE_MESSAGE_MUTATION = gql`
-  mutation CreateMessage(
-    $sendBy: String!
-    $sendTo: String!
-    $body: String!
+  mutation FindOrCreateUser(
+    $name: String!
+    $password: String!
   ) {
-    createMessage(
+    findOrCreateUser(
       data: {
-        sendBy: $sendBy
-        sendTo: $sendTo
-        body: $body
+        name: $name
+        password: $password
       }
     ) {
-      sendBy
-      sendTo
-      body
+      name
+      password
+      appmusic {
+        name
+        artist
+        album
+        artist_image
+        album_image
+        audio
+        time
+      }
+      database {
+        name
+        artist
+        album
+        artist_image
+        album_image
+        audio
+        time
+      }
     }
   }
 `;
 
-export const CLEAN_USER_MESSAGE_MUTATION = gql`
-  mutation CleanUserMessageMutation($userName: String!) {
-    clearMessage(user: $userName) {
-      sendBy
-      sendTo
-      body
+export const ADD_SONG_TO_DATABASE = gql`
+  mutation AddSongToDataBase(
+    $name: String!
+    $user: String!
+  ) {
+    addSongToDataBase (
+      data: {
+        name: $name
+        user: $user
+      }
+    ) {
+      name
+      artist
+      album
+      artist_image
+      album_image
+      audio
+      time
+    }
+  }
+`;
+
+export const REMOVE_SONG_FROM_DATABASE = gql`
+  mutation RemoveSongFromDataBase(
+    $name: String!
+    $user: String!
+  ) {
+    removeSongFromDataBase (
+      data: {
+        name: $name
+        user: $user
+      }
+    ) {
+      name
+      artist
+      album
+      artist_image
+      album_image
+      audio
+      time
+    }
+  } 
+`;
+
+export const ADD_ALBUM_TO_DATABASE = gql`
+  mutation AddAlbumToDataBase(
+    $name: String!
+    $user: String!
+  ) {
+    addAlbumToDataBase (
+      data: {
+        name: $name
+        user: $user
+      }
+    ) {
+      name
+      artist
+      album
+      artist_image
+      album_image
+      audio
+      time
     }
   }
 `;

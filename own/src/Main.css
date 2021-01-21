@@ -26,8 +26,18 @@
 
 .Main-notification {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   top: 10px;
   margin: 10px 15px;
+}
+
+.Main-notification span {
+  position: relative;
+  display: block;
+  height: 50%;
+  width: 50%;
   font-size: 1.5em;
   font-style: italic;
   color: rgb(219, 218, 218);

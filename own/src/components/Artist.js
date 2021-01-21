@@ -1,19 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './SubComponents.css'
 
-import test_db from '../test_db';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import Album from './Album';
 
-const Artist = ({ setSongName , artist }) => {
-  const songs = test_db.song.filter(song => song.artist === artist);
+const Artist = ({ username, setSongName, artist, AppMusic }) => {
+  const songs = AppMusic.filter(song => song.artist === artist);
   const [isSelected, setIsSelected] = useState(false);
   const [albumselected, setAlbumSelected] = useState(null);
+
+  // filter out albums
+  let albums = []
+  songs.map(song => {
+    if (!albums.some(s => song.album === s.album)) {
+      albums.push(song);
+    }
+  })
   
   return (
     <div className="artist-container">
       {!isSelected ? 
-      songs.map((song, index) => {
+      albums.map((song, index) => {
         return (
           <div className="albums-item" key={index}
             onClick={() => {
@@ -43,8 +50,10 @@ const Artist = ({ setSongName , artist }) => {
       </div>}
       {albumselected ? 
       <Album 
+        username={username}
         setSongName={setSongName}
         album={albumselected}
+        AppMusic={AppMusic}
       /> 
       : null}
     </div>

@@ -1,12 +1,38 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './SubComponents.css'
 
-import test_db from '../test_db';
 import { PlusOutlined, PlayCircleOutlined } from '@ant-design/icons';
 
-const Album = ({ setSongName, album }) => {
-  const songs = test_db.song.filter(song => song.album === album);
+import { useMutation } from '@apollo/client';
+import {
+  ADD_SONG_TO_DATABASE,
+  ADD_ALBUM_TO_DATABASE
+} from '../graphql'
+
+const Album = ({ username, setSongName, album, AppMusic }) => {
+  const songs = AppMusic.filter(song => song.album === album);
   const song = songs.find(song => song.album === album);
+
+  const [addSongToDataBase] = useMutation(ADD_SONG_TO_DATABASE);
+  const [addAlbumToDataBase] = useMutation(ADD_ALBUM_TO_DATABASE);
+
+  const handleAddSong = async (songname) => {
+    await addSongToDataBase({
+      variables: {
+        name: songname,
+        user: username
+      }
+    })
+  }
+
+  const handleAddAlbum = async (albumname) => {
+    await addAlbumToDataBase({
+      variables: {
+        name: albumname,
+        user: username
+      }
+    })
+  }
 
   const getTime = (timeload) => {
     let min = Math.floor(timeload / 60);
@@ -45,7 +71,11 @@ const Album = ({ setSongName, album }) => {
               </div>
             </div>
             <div className="blankspace"></div>
-            <div className="add-button-container">
+            <div className="add-button-container" 
+              onClick={() => {
+                handleAddAlbum(song.album);
+              }}
+            >
               <div className="add-button">
                 <PlusOutlined style={{
                   width: '30%', 
@@ -68,7 +98,11 @@ const Album = ({ setSongName, album }) => {
                     <span className="song-name">{song.name}</span>
                   </div>
                   <div className="song-album" onClick={() => setSongName(song.name)}></div>
-                  <div className="song-add-button" onClick={() => console.log("hello")}>
+                  <div className="song-add-button" 
+                    onClick={() => {
+                      handleAddSong(song.name)
+                    }}
+                  >
                     <PlusOutlined style={{fontSize: '20px', paddingTop: '5px', color: 'rgb(126, 126, 126)'}}/> 
                   </div>
                   <div className="song-time" onClick={() => setSongName(song.name)}>

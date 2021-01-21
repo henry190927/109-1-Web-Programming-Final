@@ -172,6 +172,10 @@
   background-color: #01161f;
 }
 
+.album-container .album-data-container .album-play-data .play-header .add-button-container .add-button:active {
+  background-color: #085575;
+}
+
 .album-container .album-data-container .album-play-data .play-header .add-button-container .add-button span.add-name {
   position: relative;
   height: 50%;
