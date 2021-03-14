@@ -5,7 +5,7 @@
 ### Group Member / 組長：吳育嘉 / 組員：葉曜德
 
 #### [DEMO LINK] https://www.youtube.com/watch?v=qicJlAjLPDM&feature=youtu.be
-#### [DEPLOY LINK] 一直失敗沒有辦法deploy成功...
+#### [DEPLOY LINK] 尚未進行deploy
 
 #### [執行方式]
 ~~~python
